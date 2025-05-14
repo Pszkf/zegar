@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Zegar wielojęzyczny</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 150px;
+      background-color: #6b90b3;
+    }
+    #clock {
+      font-size: 50px;
+      margin: 20px;
+    }
+    select {
+      font-size: 20px;
+      padding: 5px;
+      margin-left: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>Zegar</h1>
+
+  <label for="language">Wybierz język:</label>
+  
+  <select id="language">
+    <option value="pl">Polski</option>
+    <option value="en">Angielski</option>
+    <option value="fr">Francuski</option>
+  </select>
+
+  <div id="clock"></div>
+
+  <script>
+
+    const days = {
+      pl: ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"],
+      en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      fr: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
+    };
+
+    const clockElement = document.getElementById("clock");
+    const languageSelector = document.getElementById("language");
+
+    function updateClock() {
+      const now = new Date();
+      const lang = languageSelector.value;
+
+      const day = days[lang][now.getDay()];
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+
+      clockElement.textContent = `${day}, ${hours}:${minutes}:${seconds}`;
+    }
+
+    languageSelector.addEventListener("change", updateClock);
+
+    setInterval(updateClock, 1000);
+    updateClock(); 
+
+  </script>
+
+</body>
+</html>
